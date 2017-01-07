@@ -1,10 +1,11 @@
 from typing import Union, Generator, Optional
 from fnmatch import fnmatch
 
-from thundersnow.compat import scandir
+from thundersnow.compat import scandir, DirEntry
 from thundersnow.compat import Path, PurePath
 from toolz.compatibility import filter
 from toolz import flip, compose, juxt, identity
+
 from enum import Enum
 
 
@@ -23,7 +24,7 @@ class FileType(Enum):
 
 
 def _ls_internal(directory, max_depth, current_depth):
-
+    # type: (Union[str, Path], Optional[int], int) -> Generator[Dirent, None, None]
     if (max_depth is not None) and (current_depth > max_depth):
         return
     for entry in scandir(str(directory)):
@@ -40,6 +41,7 @@ def ls(directory, recursive=False):
 
 
 def _find_internal(directory, key=identity):
+    # type: (Union[str, PurePath], bool) -> Generator[Path, None, None]
     paths = ls(directory, recursive=True)
 
     if key is None:
@@ -68,6 +70,7 @@ def is_file_type(path, ftype):
 
 
 def find(directory, name='*', ftype=FileType.any):
+    # type: (Union[str, PurePath], str, FileType) -> Generator[Path, None, None]
     validators = juxt(
         compose(flip(fnmatch, name), str),  # Convert the Path object to string and match str against name
         flip(is_file_type, ftype))          # Check if the Path object is of FileType

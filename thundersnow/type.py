@@ -1,5 +1,7 @@
-from typing import Union, Any, cast, NamedTuple
 from collections import namedtuple
+
+from typing import Any, NamedTuple
+
 try:
     from collections.abc import Mapping
 except ImportError:
@@ -18,6 +20,7 @@ __all__ = (
 
 
 def immutable(clazz_name, **attrs):
+    # type: (str, **Any) -> NamedTuple
     """Immutable object factory backed by a namedtuple. It is only truly
     immutable if the attributes are immutable as well. Since the
     backing data type is a namedtuple, the returned object has a lot of
@@ -58,12 +61,12 @@ def immutable(clazz_name, **attrs):
 
     :param attrs: The attributes of the immutable object
     """
-    # type: (str, **Any) -> NamedTuple
     ImmutableClass = namedtuple(clazz_name, attrs.keys())
     return ImmutableClass(**attrs)
 
 
 def sentinel(name):
+    # type: (str) -> Any
     """Returns a named sentinel object.
 
     Often used for _missing implementations or implementation specific
@@ -80,14 +83,13 @@ def sentinel(name):
     >>> print(_Missing)
     MISSING
     """
-    # type: str -> Any
     name = name.upper()
     return boltons.typeutils.make_sentinel(var_name=name)
 
 
 if six.PY3:
     from types import SimpleNamespace
-    import json
+
 
     class Namespace(SimpleNamespace, Mapping):
 

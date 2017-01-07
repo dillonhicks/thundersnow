@@ -24,6 +24,7 @@ _missing = object()
 
 
 def module_path(obj):
+    # type: (Any) -> str
     """Return the module path of any object"""
     if inspect.ismodule(obj):
         return obj.__name__

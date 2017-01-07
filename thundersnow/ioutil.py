@@ -7,7 +7,8 @@ from thundersnow.compat import EMPTY_UTF8_STRING
 
 __all__ = (
     'iterlines',
-    'fulltext'
+    'fulltext',
+    'capture_print'
 )
 
 
