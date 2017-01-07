@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 from typing import Any, NamedTuple
 
@@ -89,7 +89,6 @@ def sentinel(name):
 
 if six.PY3:
     from types import SimpleNamespace
-
 
     class Namespace(SimpleNamespace, Mapping):
 

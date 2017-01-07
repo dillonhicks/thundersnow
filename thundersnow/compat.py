@@ -14,7 +14,7 @@ __all__ = (
 if six.PY3:
     from os import scandir, DirEntry
     from pathlib import Path, PurePath
-    from ioutil import StringIO
+    from io import StringIO
     EMPTY_UTF8_STRING = str()
 else:
     from scandir import scandir

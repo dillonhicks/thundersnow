@@ -1,8 +1,12 @@
 """Misc Tools and wrappers"""
+__version__ = '0.0.5'
+
 from setuptools import setup, find_packages
+from thundersnow import ioutil
 
 
-__version__ = '0.0.2'
+requirements = list(ioutil.iterlines('requirements.txt'))
+
 
 
 setup(
@@ -20,7 +24,7 @@ setup(
     include_package_data=True,
     zip_safe=True,
     platforms='any',
-    install_requires=['boltons', 'scandir', 'pathlib2', 'cytoolz', 'six'],
+    install_requires=requirements,
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Web Environment',
